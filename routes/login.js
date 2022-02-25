@@ -32,7 +32,7 @@ router.post("/login", function (req, res) {
       (req.session.cookie.expires = new Date(Date.now() + 60 * 1000000000)),
         (req.session.cookie.maxAge = 60 * 1000000000);
       console.log("Login success!");
-      res.redirect("/projects/about");
+      res.redirect("/todoApp/about");
     } else {
       res.render("login", {
         error: "Username and password didn't match",
@@ -57,5 +57,10 @@ function ensureAuthenticated(req, res, next) {
     });
   }
 }
+
+router.get("/logout", function (req, res, next) {
+  delete req.session.username;
+  res.redirect("/");
+});
 
 module.exports = router;

@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
-var routes = require("./routes/projects");
+var routes = require("./routes/login");
 
 const app = express();
 
@@ -11,7 +11,11 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(cookieParser());
-app.use(express.static("public"));
+//app.use(express.static("public"));
+//app.use("/public", express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -30,7 +34,7 @@ var sessionMiddleware = session({
 });
 
 app.use(sessionMiddleware);
-app.use("/projects", routes);
+app.use("/todoApp", routes);
 
 app.listen(3000, function () {
   console.log("Server started in 3000");
